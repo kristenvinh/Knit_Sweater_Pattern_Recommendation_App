@@ -43,39 +43,42 @@ blocks:
   language: python
   name: extract_pattern_details
   retry_config: null
-  status: failed
+  status: executed
   timeout: null
   type: transformer
   upstream_blocks:
   - pattern_lists
   uuid: extract_pattern_details
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration: {}
   downstream_blocks:
   - dimensions
+  - bridge_attributes
+  - pattern_photos
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
   name: export_pattern_details
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
   - extract_pattern_details
   uuid: export_pattern_details
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration:
+    data_provider: bigquery
+    data_provider_profile: default
     dbt: {}
     disable_query_preprocessing: false
     export_write_policy: append
     limit: 5000
-    use_raw_sql: false
-  downstream_blocks:
-  - bridge_attributes
+    use_raw_sql: true
+  downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -88,36 +91,39 @@ blocks:
   upstream_blocks:
   - export_pattern_details
   uuid: dimensions
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration:
+    data_provider: bigquery
+    data_provider_profile: default
     dbt: {}
     disable_query_preprocessing: false
     export_write_policy: append
     limit: 5000
-    use_raw_sql: false
-  downstream_blocks:
-  - pattern_photos
+    use_raw_sql: true
+  downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: sql
   name: bridge_attributes
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - dimensions
+  - export_pattern_details
   uuid: bridge_attributes
-- all_upstream_blocks_executed: false
+- all_upstream_blocks_executed: true
   color: null
   configuration:
+    data_provider: bigquery
+    data_provider_profile: default
     dbt: {}
     disable_query_preprocessing: false
     export_write_policy: append
     limit: 5000
-    use_raw_sql: false
+    use_raw_sql: true
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
@@ -125,11 +131,11 @@ blocks:
   language: sql
   name: pattern_photos
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
-  - bridge_attributes
+  - export_pattern_details
   uuid: pattern_photos
 cache_block_output_in_memory: false
 callbacks: []

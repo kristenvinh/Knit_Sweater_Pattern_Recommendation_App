@@ -1,0 +1,1 @@
+{"Name": "str", "Designer": "str", "ID": "int64", "URL": "str", "Free": "bool", "Photo": "str", "Craft": "str", "Attributes": "list", "Gauge": "float64", "Gauge Divisor": "float64", "Gauge Pattern": "str", "Pattern Type": "str", "Yarn Weight": "str", "Photos": "list"}

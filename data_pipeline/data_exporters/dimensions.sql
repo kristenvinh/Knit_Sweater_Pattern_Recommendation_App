@@ -1,4 +1,4 @@
-CREATE OR REPLACE TABLE `knitwear-app-37e6574c4829.ravelry_data.dim_patterns` AS
+CREATE OR REPLACE TABLE `knitwear-app.ravelry_data.dim_patterns` AS
 SELECT
   CAST(ID AS INT64) AS pattern_id,
   Name AS pattern_name,
@@ -11,6 +11,6 @@ SELECT
   Gauge_Divisor AS gauge_divisor,
   Gauge_Pattern AS gauge_pattern
 FROM
-  `knitwear-app-37e6574c4829.ravelry_data.final_pattern_attributes`
+  `knitwear-app.ravelry_data.detail_data`
 WHERE
   ID IS NOT NULL;-- Docs: https://docs.mage.ai/guides/sql-blocks
