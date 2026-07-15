@@ -124,8 +124,7 @@ blocks:
     export_write_policy: append
     limit: 5000
     use_raw_sql: true
-  downstream_blocks:
-  - external_table
+  downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -138,31 +137,6 @@ blocks:
   upstream_blocks:
   - export_pattern_details
   uuid: pattern_photos
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    data_provider: bigquery
-    data_provider_database: knitwear-app
-    data_provider_profile: default
-    data_provider_schema: ravelry_data
-    dbt: {}
-    disable_query_preprocessing: false
-    export_write_policy: append
-    limit: 1000
-    use_raw_sql: false
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: sql
-  name: external_table
-  retry_config: null
-  status: failed
-  timeout: null
-  type: data_exporter
-  upstream_blocks:
-  - pattern_photos
-  uuid: external_table
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

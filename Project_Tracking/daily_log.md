@@ -15,3 +15,10 @@
     - Created a second data_loader to grab pattern details from Ravelry patterns from first download.
     - Created a data_exporter to export the details to BigQuery Table.
 
+### 7.14
+
+- Set up Google Cloud Storage Bucket for images
+- Created Python script to download images to the bucket
+    - Downloaded images for 100 patterns
+    - Created table in BigQuery to correspond to those images
+    - Paused process to ensure billing seemed correct tomorrow
