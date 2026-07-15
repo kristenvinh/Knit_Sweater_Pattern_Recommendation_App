@@ -34,5 +34,6 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
 ---
 
 ## What’s next?  
+- Revamp my original feature extraction pipeline so that it works with the BigQuery database and images stored on Google Cloud Storage.
 
 ### 
