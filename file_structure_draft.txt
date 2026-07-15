@@ -12,9 +12,15 @@ knitwear_recommender/             # Main project root folder
 │
 ├── data_pipeline/                # WEEK 1: Mage Subfolder (Created automatically by Mage)
 │   ├── data_loaders/
-│   │   └── fetch_ravelry_data.py # Python script hitting the Ravelry API
+│   │   └── pattern_lists.py       # Python script hitting the Ravelry API
 │   ├── data_exporters/
-│   │   └── load_to_bigquery.py   # Script loading raw JSON payloads to BigQuery staging
+│   │   └── export_pattern_lists.py   # Script loading data to BigQuery
+│   │   └── export_pattern_details.py   # Script loading data to BigQuery
+│   │   └── dimensions.sql          #Creates primary lookup table
+│   │   └── bridge_attributes.sql      # Creates list of patterns and attributes
+│   │   └── pattern_photos.sql      # Creates a list of patterns and photo urls
+│   ├── data_transformers/
+│   │   └── export_pattern_details.py  # Retrieves from patterns using API
 │   └── io_config.yaml           # Central connections profile (holds GCP key path & API keys)
 │
 ├── ml_engine/                    # WEEK 2: Local Feature Extraction & Multicentroid Processing
@@ -22,6 +28,7 @@ knitwear_recommender/             # Main project root folder
 │   │   ├── yolov8n-pose.pt       # Cached local YOLO model weights
 │   │   └── dinov2_vitb14.pt      # Cached local DINOv2 model weights
 │   ├── src/
+│   │   ├── image_downloading.py  # Downloads images from Ravlery
 │   │   ├── crop_images.py        # Cropping logic using YOLO-v8n-Pose points
 │   │   ├── extract_features.py   # Image vector extraction via DINOv2
 │   │   └── cluster_centroids.py  # K-Means clustering script to generate 3-5 centroids per pattern
