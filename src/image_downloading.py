@@ -32,7 +32,7 @@ def stream_images_to_gcs():
         )
         WHERE rn <= 5
         ORDER BY pattern_id, rn
-        LIMIT 5000
+        LIMIT 10000
     """
     
     print("Extracting photo URLs from BigQuery...")
