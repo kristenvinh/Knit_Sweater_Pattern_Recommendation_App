@@ -16,7 +16,7 @@ This process downloads a list of patterns via the Ravelry API, uploads the list 
 It also transforms the data in three specific ways:
 
 - Creates a table called 'bridge_pattern_attributes' which unnests the list of attributes associated with patterns, creating a dedicated row for each attribute and the pattern its associated with.
-- Creates a table called 'dim_patterns' that builds the primary look-up table for the catalog of sweater pattterns.
+- Creates a table called 'dim_patterns' that builds the primary look-up table for the catalog of sweater patterns.
 - Creates a table called 'dim_pattern_photos'  which unnests the medium2_urls from the photo object for each pattern and stores them as their own row, while creating a column for sort order to maintain the order in which they were listed in the original Ravelry listing. 
 
 ![Image of Tree Structure for Mage.AI Pipeline](mageaitree.png)
