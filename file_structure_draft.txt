@@ -28,7 +28,7 @@ knitwear_recommender/             # Main project root folder
 │   │   ├── yolov8n-pose.pt       # Cached local YOLO model weights
 │   │   └── dinov2_vitb14.pt      # Cached local DINOv2 model weights
 │   ├── src/
-│   │   ├── image_downloading.py  # Downloads images from Ravlery
+│   │   ├── image_downloading.py  # Downloads images from Ravlery to GCS
 │   │   ├── crop_images.py        # Cropping logic using YOLO-v8n-Pose points
 │   │   ├── extract_features.py   # Image vector extraction via DINOv2
 │   │   └── cluster_centroids.py  # K-Means clustering script to generate 3-5 centroids per pattern

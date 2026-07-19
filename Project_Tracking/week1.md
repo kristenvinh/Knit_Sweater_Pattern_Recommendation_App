@@ -17,7 +17,7 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
 1. Download Pattern Data use Mage.AI ETL process from Ravelry API and Store in BigQuery
     - Downloaded basic pattern data (Pattern name, ID, Designer, URL, Photo)
     - Downloaded pattern details (more images, gauge, pattern attributes, yarn weight, etc.)
-    - Began downloading images via separate Python script to Google Cloud Storage
+    - Downloaded images via separate Python script to Google Cloud Storage
 
 ---
 
