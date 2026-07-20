@@ -1,3 +1,5 @@
+from email.mime import image
+
 import numpy as np
 import cv2 
 from ultralytics import YOLO  
@@ -23,8 +25,8 @@ def _ensure_yolo_models():
         return False
 
     try:
-        yolo_seg_model = YOLO('yolov8n-seg.pt')
-        yolo_pose_model = YOLO('yolov8n-pose.pt')
+        yolo_seg_model = YOLO('yolov8m-seg.pt')
+        yolo_pose_model = YOLO('yolov8m-pose.pt')
         return True
     except Exception as e:
         yolo_init_error = e
@@ -199,7 +201,8 @@ def extract_and_crop_image(image_path):
             
             if crop_box:
                 y1, y2, x1, x2 = crop_box
-                cropped_bgr = masked_image[y1:y2, x1:x2]
+                # Accuracy Test: crops the original image context using the smart coordinates
+                cropped_bgr = image[y1:y2, x1:x2]
             else:
                 # Fallback to the full masked image if no valid crop box
                 cropped_bgr = masked_image

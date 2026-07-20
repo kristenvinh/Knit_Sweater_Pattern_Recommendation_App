@@ -79,7 +79,8 @@ def extract_features(img_path, return_cropped_image=False):
             
             outputs = current_model(**inputs)
         # 4. Get the feature vector
-            feature_vector = outputs.last_hidden_state.mean(dim=1).squeeze().cpu().numpy()
+            # Optimized for DINOv2 global feature representation
+            feature_vector = outputs.last_hidden_state[:, 0].squeeze().cpu().numpy()
             
         # 5. Normalize the vector
         normalized_vector = feature_vector / norm(feature_vector)

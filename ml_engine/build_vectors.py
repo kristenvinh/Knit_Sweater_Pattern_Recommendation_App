@@ -13,11 +13,11 @@ from feature_extraction import extract_features
 
 
 feature_dim = 768 # Feature dimension for DINO features
-data_directory = '/Volumes/Extreme Pro/ANN_photos'  # Example directory path, files should be in pattern subfolders
-n_clusters = 3   # K-means clusters per pattern (3-5 recommended, 4 is good balance)
+data_directory = '/Volumes/Extreme Pro/sweater_photos'  
+n_clusters = 4   # K-means clusters per pattern (3-5 recommended, 4 is good balance)
 
 # Filenames
-features_file = 'master_features_DINO_yolo_pose_multicentroid.npy'
+features_file = 'features_DINO_yolo_pose_multicentroid.npy'
 pattern_ids_file = 'pattern_ids_DINO_yolo_pose_multicentroid.pkl'
 pattern_mapping_file = 'pattern_to_centroids_DINO_yolo_pose_multicentroid.pkl'
 # ---

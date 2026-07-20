@@ -8,12 +8,12 @@ from ml_engine.build_vectors import build_vectors
 
 # --- Setup ---
 feature_dim = 768 #Feature dimension for DINO features
-data_directory = '/Volumes/Extreme Pro/ANN_photos'  # Example directory path, images should be in pattern subfolders
-features_file = 'features_DINO_yolo_pose_multicentroid3.npy'
-pattern_ids_file = 'pattern_ids_DINO_yolo_pose_multicentroid3.pkl'
-pattern_mapping_file = 'pattern_to_centroids_DINO_yolo_pose3.pkl'  # Maps centroid_idx -> pattern_id
-index_name = 'sweater_hnsw_DINO_yolo_pose_multicentroid3.bin'
-mapping_file = 'centroid_to_pattern_DINO_yolo_pose3.pkl'  # For query-time lookup
+data_directory = '/Volumes/Extreme Pro/sweater_photos'  # Example directory path, images should be in pattern subfolders
+features_file = 'features_DINO_yolo_pose_multicentroid.npy'
+pattern_ids_file = 'pattern_ids_DINO_yolo_pose_multicentroid.pkl'
+pattern_mapping_file = 'pattern_to_centroids_DINO_yolo_pose.pkl'  # Maps centroid_idx -> pattern_id
+index_name = 'sweater_hnsw_DINO_yolo_pose_multicentroid.bin'
+mapping_file = 'centroid_to_pattern_DINO_yolo_pose.pkl'  # For query-time lookup
 # ---
 
 if __name__ == "__main__":
