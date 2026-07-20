@@ -1,12 +1,13 @@
 import os
 import pickle
+from shlex import split
 import numpy as np
 import pandas as pd
 from google.cloud import bigquery
 from google.oauth2 import service_account
 
 # --- Configuration ---
-CREDENTIALS_PATH = 'knitwear-app-37e6574c4829.json' # Path to your GCP service account JSON
+CREDENTIALS_PATH = 'ml_engine/knitwear-app-37e6574c4829.json' # Path to your GCP service account JSON
 master_features_file = 'features_DINO_yolo_pose_multicentroid.npy'
 pattern_mapping_file = 'pattern_to_centroids_DINO_yolo_pose_multicentroid.pkl'
 
@@ -30,7 +31,7 @@ def upload_centroids_to_bigquery():
             vector = all_centroids[global_idx].tolist() # BigQuery requires a standard Python list, not a numpy array
             
             rows_list.append({
-                "pattern_id": int(pattern_id),
+                "pattern_id": int("".join(filter(str.isdigit, str(pattern_id)))), # Assuming pattern_id format is 'pattern_12345'
                 "centroid_index": int(order_idx), # Distinguishes centroid 0, 1, 2 for the same pattern
                 "image_embedding": vector
             })
