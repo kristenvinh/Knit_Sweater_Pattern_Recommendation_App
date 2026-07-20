@@ -28,5 +28,11 @@
 - Further documented process in Readme file
 - Updated repository file structure document
 
+## Week 2
+
 ### 7.19
 - Transferred files from original knitwear rec project for feature extraction, vector building and index building and began modifying for use with GCS
+
+### 7.20
+- Upgraded YOLO segmentation and pose models from nano to medium variants in hopes of improved accuracy.
+- Change feature extraction to use DINOv2 CLS token (first token) instead of mean pooling in hopes of improved accuracy.

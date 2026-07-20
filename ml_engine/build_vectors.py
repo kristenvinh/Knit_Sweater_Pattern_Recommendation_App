@@ -47,7 +47,7 @@ def build_vectors():
         pattern_feature_list = []
         
         image_files = [f for f in os.listdir(pattern_folder_path) 
-                      if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+                      if f.lower().endswith(('.png', '.jpg', '.jpeg')) and not f.startswith('._')]
         if not image_files:
             print(f"  Skipping {pattern_id}: no images found")
             continue
