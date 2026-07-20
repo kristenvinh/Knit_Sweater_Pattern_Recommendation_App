@@ -31,7 +31,6 @@ knitwear_recommender/             # Main project root folder
 │   │   ├── image_downloading.py  # Downloads images from Ravlery to GCS
 │   │   ├── crop_images.py        # Cropping logic using YOLO-v8n-Pose points
 │   │   ├── extract_features.py   # Image vector extraction via DINOv2
-│   │   └── cluster_centroids.py  # K-Means clustering script to generate 3-5 centroids per pattern
 │   └── generate_embeddings.py    # Main orchestration execution script for ML steps
 │
 ├── sql_assets/                   # WEEKS 1, 2, & 3: Production Database Scripts

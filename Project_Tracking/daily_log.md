@@ -27,3 +27,6 @@
 - Continued downloading images
 - Further documented process in Readme file
 - Updated repository file structure document
+
+### 7.19
+- Transferred files from original knitwear rec project for feature extraction, vector building and index building and began modifying for use with GCS

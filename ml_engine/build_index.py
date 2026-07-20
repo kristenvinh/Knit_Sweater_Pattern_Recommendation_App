@@ -4,7 +4,7 @@ import pickle
 import numpy as np
 import hnswlib
 import time
-from build_vectors import build_vectors
+from ml_engine.build_vectors import build_vectors
 
 # --- Setup ---
 feature_dim = 768 #Feature dimension for DINO features
