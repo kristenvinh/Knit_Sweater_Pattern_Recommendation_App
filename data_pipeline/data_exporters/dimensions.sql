@@ -9,7 +9,8 @@ SELECT
   Yarn_Weight AS yarn_weight,
   CAST(Gauge AS FLOAT64) AS gauge,
   Gauge_Divisor AS gauge_divisor,
-  Gauge_Pattern AS gauge_pattern
+  Gauge_Pattern AS gauge_pattern,
+  Notes AS notes
 FROM
   `knitwear-app.ravelry_data.detail_data`
 WHERE

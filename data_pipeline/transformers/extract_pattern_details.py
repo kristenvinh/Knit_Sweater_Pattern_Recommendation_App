@@ -33,6 +33,7 @@ def get_pattern_details(pattern_id, api_key, api_secret):
         # Extract the deep attributes
         craft = pattern_data.get('craft', {}).get('name')
         attributes = pattern_data.get('pattern_attributes', [])
+        notes = pattern_data.get('notes', '')
         gauge = pattern_data.get('gauge', None)
         gauge_divisor = pattern_data.get('gauge_divisor', None)
         gauge_pattern = pattern_data.get('gauge_pattern', None)
@@ -43,6 +44,7 @@ def get_pattern_details(pattern_id, api_key, api_secret):
         return {
             'Craft': craft, 
             'Attributes': extract_permalinks(attributes), 
+            'Notes': notes,
             'Gauge': gauge, 
             'Gauge Divisor': gauge_divisor, 
             'Gauge Pattern': gauge_pattern, 

@@ -28,12 +28,13 @@ The last step in acquiring data from Ravelry was to download images and upload t
 
 Next, feature extraction is performed on the sweater images 
 
-### YOLO_Pose_Crop.py
+### Crop_Images.py
 
 This serves as a pre-processing step, helping to isolate the sweater from busy backgrounds that are frequently found in Ravelry images. It uses yolov8m-seg and yolov8m-pose models to detect person objects. It attempts a "Smart Crop" utilizing key coordinates (shoulders and hips) to define padding metrics around the torso. If a pose cannot be localized with high confidence, it seamlessly falls back to the full segmentation mask bounds to extract the "person" from the image with a structural padding buffer. 
 
 This file also includes a safety net to ensure that the an empty or heavily cropped image isn't passed to the feature encoder.
-### Feature_Extraction.py
+
+### Extract_Features.py
 
 Next, using feacebook/dinov2-base to extract dense, normalized visual embeddings from the cropped image arrays produced by YOLO_Pose_Crop.py. Preprocesses the cropped image arrays and slices the Vision Transformer's global [CLS] token directly from the hidden states to preserve deep semantic pattern details (like texture, yarn weight, and stitch geometry) rather than flat-averaging spatial patches. The final 768-dimensional vector is unit-normalized using L2 norm scaling.
 

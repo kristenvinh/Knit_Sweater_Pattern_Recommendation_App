@@ -85,7 +85,7 @@ blocks:
   language: sql
   name: dimensions
   retry_config: null
-  status: updated
+  status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:

@@ -31,11 +31,12 @@ knitwear_recommender/             # Main project root folder
 │   │   ├── image_downloading.py  # Downloads images from Ravlery to GCS
 │   │   ├── crop_images.py        # Cropping logic using YOLO-v8n-Pose points
 │   │   ├── extract_features.py   # Image vector extraction via DINOv2
+│   │   ├── build_vectors.py      # Extracts centroids from multiple image vectors
+│   │   ├── build_index.py        # Builds HNSWlib index, runs other scripts
+│   │   ├── upload_centroids.py   # Uploads centroid vectors to BigQuery
 │   └── generate_embeddings.py    # Main orchestration execution script for ML steps
 │
 ├── sql_assets/                   # WEEKS 1, 2, & 3: Production Database Scripts
-│   ├── staging/
-│   │   └── flatten_ravelry_json.sql # ELT transformation query using JSON_EXTRACT_ARRAY & UNNEST
 │   ├── indexing/
 │   │   ├── text_embeddings_ml.sql   # BigQuery ML script calling Vertex AI text embedding model
 │   │   └── create_vector_indexes.sql # CREATE VECTOR INDEX statements for text and image columns

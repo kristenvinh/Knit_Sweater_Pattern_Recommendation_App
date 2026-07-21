@@ -37,3 +37,8 @@
 - Upgraded YOLO segmentation and pose models from nano to medium variants in hopes of improved accuracy.
 - Change feature extraction to use DINOv2 CLS token (first token) instead of mean pooling in hopes of improved accuracy.
 - Uploaded vectors to BigQuery.
+
+
+### 7.21 
+- Extracted pattern descriptions as "notes" in Python script in case it's helpful to use them later
+- Organized files
