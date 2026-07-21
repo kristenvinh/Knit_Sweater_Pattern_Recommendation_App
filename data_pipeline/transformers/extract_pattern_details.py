@@ -18,8 +18,8 @@ def extract_permalinks(attribute_list):
 
 def get_pattern_details(pattern_id, api_key, api_secret):
     """Fetches nested details for a given pattern ID with rate limiting."""
-    # Strict 0.5s rate limit to prevent IP blocking
-    time.sleep(0.5) 
+    # Strict 0.1s rate limit to prevent IP blocking
+    time.sleep(0.1) 
     
     details_url = f"https://api.ravelry.com/patterns/{pattern_id}.json"
     
@@ -40,6 +40,8 @@ def get_pattern_details(pattern_id, api_key, api_secret):
         pattern_type = pattern_data.get('pattern_type', {}).get('permalink')
         yarn_weight = pattern_data.get('yarn_weight', {}).get('name')
         photos = pattern_data.get('photos', [])
+        favorites_count = pattern_data.get('favorites_count', None)
+        projects_count = pattern_data.get('projects_count', None)
 
         return {
             'Craft': craft, 
@@ -50,7 +52,9 @@ def get_pattern_details(pattern_id, api_key, api_secret):
             'Gauge Pattern': gauge_pattern, 
             'Pattern Type': pattern_type, 
             'Yarn Weight': yarn_weight, 
-            'Photos': photos
+            'Photos': photos,
+            'Favorites Count': favorites_count,
+            'Projects Count': projects_count
         }
 
     except requests.exceptions.RequestException as e:

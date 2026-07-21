@@ -43,13 +43,13 @@ blocks:
   language: python
   name: extract_pattern_details
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: transformer
   upstream_blocks:
   - pattern_lists
   uuid: extract_pattern_details
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks:
@@ -68,7 +68,7 @@ blocks:
   upstream_blocks:
   - extract_pattern_details
   uuid: export_pattern_details
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     data_provider: bigquery
@@ -85,13 +85,13 @@ blocks:
   language: sql
   name: dimensions
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_exporter
   upstream_blocks:
   - export_pattern_details
   uuid: dimensions
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     data_provider: bigquery
@@ -114,7 +114,7 @@ blocks:
   upstream_blocks:
   - export_pattern_details
   uuid: bridge_attributes
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     data_provider: bigquery
@@ -138,7 +138,7 @@ blocks:
   upstream_blocks:
   - export_pattern_details
   uuid: pattern_photos
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     file_source:

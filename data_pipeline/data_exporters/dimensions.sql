@@ -10,7 +10,9 @@ SELECT
   CAST(Gauge AS FLOAT64) AS gauge,
   Gauge_Divisor AS gauge_divisor,
   Gauge_Pattern AS gauge_pattern,
-  Notes AS notes
+  Notes AS notes,
+  Projects_Count AS projects_count,
+  Favorites_Count AS favorites_count
 FROM
   `knitwear-app.ravelry_data.detail_data`
 WHERE

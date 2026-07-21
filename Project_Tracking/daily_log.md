@@ -42,3 +42,8 @@
 ### 7.21 
 - Extracted pattern descriptions as "notes" in Python script in case it's helpful to use them later
 - Organized files
+- Built text modeling using Vertex AI:
+    - Created a feature engineering query that concatenates structured metadata (pattern name, yarn weight, attributes) that would be fed to the LLM.
+    - Connected BigQuery and Google's generation embedding model
+    - Generated embeddings from the engineered features. 
+- Build image vector ANN

@@ -56,6 +56,14 @@ Note: This file currently runs the build_vectors() function, otherwise, building
 
 Converts local structural arrays into a production cloud data warehouse schema and executes the primary ingestion to BigQuery.
 
+## Step 3: Build text embeddings
+
+In order to create an application that would allow for searching by image + text, text vectors were created by doing the following:
+
+### Feature_Engineering.sql
+
+
+
 ## Acknowledgments & References
 
 - The indexing strategies were modeled after code used in [Fashion Recommender system](https://github.com/sonu275981/Fashion-Recommender-system/), the code from the paper [Personalized fashion recommender system with image based neural networks](https://iopscience.iop.org/article/10.1088/1757-899X/981/2/022073), although the code is not currently accessible on Github as of 12.8.25.
