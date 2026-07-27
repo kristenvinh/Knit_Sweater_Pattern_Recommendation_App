@@ -26,7 +26,7 @@ The last step in acquiring data from Ravelry was to download images and upload t
 
 ## Step Two: Create and Load Vectors to BigQuery
 
-Next, feature extraction is performed on the sweater images 
+Next, feature extraction is performed on the sweater images:
 
 ### Crop_Images.py
 

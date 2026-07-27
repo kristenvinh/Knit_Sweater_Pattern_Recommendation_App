@@ -47,3 +47,7 @@
     - Connected BigQuery and Google's generation embedding model
     - Generated embeddings from the engineered features. 
 - Build image vector ANN
+
+### 7.22
+- Had Gemini help with a base testing accuracy script, need to go more into evaluation later to ensure it's working well
+- Had gemini write a basic Streamlit app structure, fed that to Replit, which built out a basic application 

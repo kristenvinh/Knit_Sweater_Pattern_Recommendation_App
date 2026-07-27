@@ -29,6 +29,8 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
 ## What did you make progress on this week?
 
 - Extracted features, created vectors from image centroids, uploaded those to BigQuery
+- Extracted a project description and other text features to create a text-based index for querying.
+- Used Gemini and Replit to vibe code the start of my application which takes an image and text description and searches the index for the closest match. 
 
 ---
 
@@ -39,6 +41,8 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
 ---
 
 ## What’s next?  
+- Update application with better instructions.
+- See if any improvements to the feature extraction can be made. 
 - See if there's a way to add new patterns to the database easily. 
 
 ### 
