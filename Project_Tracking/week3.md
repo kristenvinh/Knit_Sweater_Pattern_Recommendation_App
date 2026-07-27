@@ -24,6 +24,10 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
     - Extract centroids to create a vectors representing multiple images
     - Upload vectors to BigQuery
 3. Create and Load Text Vectors to BigQuery
+    - Feature-engineered a text description with pattern name, pattern notes, attributes, and yarn weight.
+    - Used Vertex AI to convert these descriptions to vectors for search
+4. Used Replit and Gemini to create an app that finds the nearest vectors to an image uploaded by a user and text entered by the user, weighted equally. 
+
 
 
 ---
@@ -35,7 +39,7 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
 
 ## What challenges did you encounter?
 
- 
+
 
 ---
 

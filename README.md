@@ -69,6 +69,6 @@ In order to create an application that would allow for searching by image + text
 
 ## Acknowledgments & References
 
-- The indexing strategies were modeled after code used in [Fashion Recommender system](https://github.com/sonu275981/Fashion-Recommender-system/), the code from the paper [Personalized fashion recommender system with image based neural networks](https://iopscience.iop.org/article/10.1088/1757-899X/981/2/022073), although the code is not currently accessible on Github as of 12.8.25.
-- Development: Front-end architecture, XAI scripts, and the final API integration were developed with Google's Gemini AI. Gemini AI also helped in developing and debugging other sections of code, including feature extraction, cropping and index building scripts. 
+- The indexing strategies were modeled after code used in [Fashion Recommender system](https://github.com/sonu275981/Fashion-Recommender-system/), the code from the paper [Personalized fashion recommender system with image based neural networks](https://iopscience.iop.org/article/10.1088/1757-899X/981/2/022073), although the code is not currently accessible on Github as of 7.27.26.
+- Development: Final application were developed with Replit and Google's Gemini AI. Gemini AI also helped in developing and debugging other sections of code, including feature extraction, cropping and index building scripts. 
 - Data Source: Pattern data and images provided via the Ravelry API.
