@@ -3,22 +3,21 @@ import urllib.parse
 import time
 import requests
 import pandas as pd
-from google.cloud import bigquery, storage
+from google.cloud import bigquery
 from google.oauth2 import service_account
 
-
 # --- Configuration ---
-BUCKET_NAME = 'knitwear-pattern-images' # <-- Replace with your actual GCS bucket name
+# You can update this to your specific path, e.g., '/Volumes/Extreme Pro/sweater_photos'
+LOCAL_SAVE_DIR = './sweater_photos' 
 CREDENTIALS_PATH = 'src/knitwear-app-37e6574c4829.json' 
 
-def stream_images_to_gcs():
-    # 1. Initialize Google Cloud credentials
+def stream_images_to_local():
+    # 1. Initialize Google Cloud credentials for BigQuery
     credentials = service_account.Credentials.from_service_account_file(CREDENTIALS_PATH)
-    
-    # 2. Initialize BigQuery and GCS clients
     bq_client = bigquery.Client(credentials=credentials, project=credentials.project_id)
-    gcs_client = storage.Client(credentials=credentials, project=credentials.project_id)
-    bucket = gcs_client.bucket(BUCKET_NAME)
+    
+    # Ensure the base directory exists
+    os.makedirs(LOCAL_SAVE_DIR, exist_ok=True)
 
     # 3. Query BigQuery for up to 5 photos per pattern
     query = """
@@ -41,21 +40,27 @@ def stream_images_to_gcs():
     grouped_patterns = df.groupby('pattern_id')
     total_patterns = len(grouped_patterns)
     
-    print(f"Found {total_patterns} unique patterns to process. Starting streaming to GCS...")
+    print(f"Found {total_patterns} unique patterns to process. Starting download to local drive...")
 
     processed_count = 0
     skipped_count = 0
-    uploaded_images_count = 0
+    downloaded_images_count = 0
     print_interval = 50
 
     for pattern_id, group in grouped_patterns:
         try:
-            # We will name files inside GCS using a folder structure: pattern_ID/01.jpg, pattern_ID/02.jpg...
-            # To see if we can skip this pattern, check if the first image already exists in GCS
-            first_blob = bucket.blob(f"pattern_{pattern_id}/01.jpg")
-            if first_blob.exists():
+            # Set up local folder for this specific pattern
+            # Note: Removed the "pattern_" prefix to match your build_vectors.py structure
+            pattern_dir = os.path.join(LOCAL_SAVE_DIR, str(pattern_id))
+            
+            # Check if the first image already exists to skip
+            first_file_path = os.path.join(pattern_dir, "01.jpg")
+            if os.path.exists(first_file_path):
                 skipped_count += 1
                 continue
+
+            # Create the folder since we need to download
+            os.makedirs(pattern_dir, exist_ok=True)
 
             img_num = 1
             for _, row in group.iterrows():
@@ -73,13 +78,13 @@ def stream_images_to_gcs():
                     response = requests.get(safe_url, timeout=10)
                     response.raise_for_status()
 
-                    # Define target GCS path and upload raw bytes in-memory
-                    blob_name = f"pattern_{pattern_id}/{img_num:02d}.jpg"
-                    blob = bucket.blob(blob_name)
-                    blob.upload_from_string(response.content, content_type='image/jpeg')
+                    # Write raw bytes to local disk
+                    file_path = os.path.join(pattern_dir, f"{img_num:02d}.jpg")
+                    with open(file_path, 'wb') as f:
+                        f.write(response.content)
 
                     img_num += 1
-                    uploaded_images_count += 1
+                    downloaded_images_count += 1
                     time.sleep(0.1) # Soft rate-limiting to be nice to Ravelry's CDN
                     
                 except Exception as e:
@@ -93,13 +98,13 @@ def stream_images_to_gcs():
         
         # Periodic progress updates
         if (processed_count + skipped_count) % print_interval == 0:
-            status_text = f"Checked {processed_count + skipped_count} of {total_patterns} patterns (Uploaded: {uploaded_images_count} images, Skipped: {skipped_count} patterns)..."
+            status_text = f"Checked {processed_count + skipped_count} of {total_patterns} patterns (Downloaded: {downloaded_images_count} images, Skipped: {skipped_count} patterns)..."
             print(status_text)
 
     print("\n--- Pipeline Completed ---")
     print(f"Total patterns processed: {processed_count}")
     print(f"Total patterns skipped: {skipped_count}")
-    print(f"Total images uploaded: {uploaded_images_count}")
+    print(f"Total images downloaded: {downloaded_images_count}")
 
 if __name__ == '__main__':
-    stream_images_to_gcs()
+    stream_images_to_local()

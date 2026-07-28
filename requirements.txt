@@ -1,0 +1,15 @@
+# PyTorch (CPU version for GitHub Actions)
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+torchvision
+
+# Machine Learning & Vision
+transformers
+ultralytics
+opencv-python-headless
+Pillow
+
+# Data & GCP
+pandas
+requests
+google-cloud-bigquery

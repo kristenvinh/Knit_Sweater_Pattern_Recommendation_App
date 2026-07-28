@@ -51,3 +51,23 @@
 ### 7.22
 - Had Gemini help with a base testing accuracy script, need to go more into evaluation later to ensure it's working well
 - Had gemini write a basic Streamlit app structure, fed that to Replit, which built out a basic application 
+
+### 7.27
+
+- Recorded week 3 demo
+- Began optimizing the application to better suit needs:
+    - Removed slider, now relies on equal text and image
+    - Identified need to incorporate YOLO and extract features in the same way as the index does
+
+### 7.28
+
+- Made decision to focus on improving app by:
+    - Having a deeper index of 10,000 sweaters
+    - Creating scripts to automatically pull in sweaters
+    - Continuing to tweak the image feature extraction as possible
+- Began this work today by:
+    - updating mage.ai process to download the first 10,000 sweaters that have the most projects
+    - converting image download script to be download to harddrive vs GCS
+- Realized Replit application was eating a lot of credits, debugged with Gemini
+    - Switched to smaller yolo models for application
+    - Ensured it had access to it on the server instead of having to fresh download it every time

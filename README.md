@@ -22,7 +22,7 @@ It also transforms the data in three specific ways:
 ![Image of Tree Structure for Mage.AI Pipeline](mageaitree.png)
 ### Image Downloading Process
 
-The last step in acquiring data from Ravelry was to download images and upload them to a local drive, downloading no more than 5 images for each pattern and storing them by pattern_ID. 
+The last step in acquiring data from Ravelry was to download images and upload them to a local drive, downloading no more than 5 images for each pattern and storing them by pattern_ID via the image_downloading.py script. 
 
 ## Step Two: Create and Load Vectors to BigQuery
 

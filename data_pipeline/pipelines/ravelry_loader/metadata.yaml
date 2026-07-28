@@ -11,12 +11,12 @@ blocks:
   language: python
   name: Pattern_lists
   retry_config: null
-  status: executed
+  status: updated
   timeout: null
   type: data_loader
   upstream_blocks: []
   uuid: pattern_lists
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks: []
@@ -32,7 +32,7 @@ blocks:
   upstream_blocks:
   - pattern_lists
   uuid: export_pattern_lists
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks:
@@ -49,7 +49,7 @@ blocks:
   upstream_blocks:
   - pattern_lists
   uuid: extract_pattern_details
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration: {}
   downstream_blocks:
@@ -68,7 +68,7 @@ blocks:
   upstream_blocks:
   - extract_pattern_details
   uuid: export_pattern_details
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     data_provider: bigquery
@@ -91,7 +91,7 @@ blocks:
   upstream_blocks:
   - export_pattern_details
   uuid: dimensions
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     data_provider: bigquery
@@ -114,7 +114,7 @@ blocks:
   upstream_blocks:
   - export_pattern_details
   uuid: bridge_attributes
-- all_upstream_blocks_executed: true
+- all_upstream_blocks_executed: false
   color: null
   configuration:
     data_provider: bigquery
@@ -124,8 +124,7 @@ blocks:
     export_write_policy: append
     limit: 5000
     use_raw_sql: true
-  downstream_blocks:
-  - external_table
+  downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -138,24 +137,6 @@ blocks:
   upstream_blocks:
   - export_pattern_details
   uuid: pattern_photos
-- all_upstream_blocks_executed: true
-  color: null
-  configuration:
-    file_source:
-      path: data_exporters/external_table.sql
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: sql
-  name: external_table
-  retry_config: null
-  status: not_executed
-  timeout: null
-  type: data_exporter
-  upstream_blocks:
-  - pattern_photos
-  uuid: external_table
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}

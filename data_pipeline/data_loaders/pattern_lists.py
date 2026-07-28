@@ -25,6 +25,7 @@ def fetch_patterns(craft, pc, api_key, api_secret, max_pages=200):
         params = {
             "craft": craft,
             "pc": pc,
+            "sort": "projects",    # Sort by number of projects (popularity)
             "page_size": 100,
             "page": page
         }
@@ -91,8 +92,8 @@ def load_data_from_api(*args, **kwargs):
     api_secret = config.get('RAVELRY_API_SECRET')
     
     # Execute the searches for both categories
-    df_cardigans = fetch_patterns("knitting", "cardigan", api_key, api_secret, max_pages=25)
-    df_pullovers = fetch_patterns("knitting", "pullover", api_key, api_secret, max_pages=25)
+    df_cardigans = fetch_patterns("knitting", "cardigan", api_key, api_secret, max_pages=51)
+    df_pullovers = fetch_patterns("knitting", "pullover", api_key, api_secret, max_pages=51)
     
     # Combine and deduplicate
     df_combined = pd.concat([df_cardigans, df_pullovers]).drop_duplicates(subset=['ID']).reset_index(drop=True)
