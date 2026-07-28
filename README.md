@@ -22,7 +22,7 @@ It also transforms the data in three specific ways:
 ![Image of Tree Structure for Mage.AI Pipeline](mageaitree.png)
 ### Image Downloading Process
 
-The last step in acquiring data from Ravelry was to download images and upload them to Google Cloud Storage in the image_downloading.py file, downloading no more than 5 images for each pattern and storing them by pattern_ID. 
+The last step in acquiring data from Ravelry was to download images and upload them to a local drive, downloading no more than 5 images for each pattern and storing them by pattern_ID. 
 
 ## Step Two: Create and Load Vectors to BigQuery
 
@@ -69,6 +69,8 @@ In order to create an application that would allow for searching by image + text
 
 ## Acknowledgments & References
 
-- The indexing strategies were modeled after code used in [Fashion Recommender system](https://github.com/sonu275981/Fashion-Recommender-system/), the code from the paper [Personalized fashion recommender system with image based neural networks](https://iopscience.iop.org/article/10.1088/1757-899X/981/2/022073), although the code is not currently accessible on Github as of 7.27.26.
-- Development: Final application were developed with Replit and Google's Gemini AI. Gemini AI also helped in developing and debugging other sections of code, including feature extraction, cropping and index building scripts. 
+- The work done in [Personalized fashion recommender system with image based neural networks](https://iopscience.iop.org/article/10.1088/1757-899X/981/2/022073) served as an inspiration and baseline for this project. 
+ M. Sridevi, N. ManikyaArun, M. Sheshikala, and E. Sudarshan, “Personalized fashion recommender system with image based neural networks,” IOP Conf. Ser.: Mater. Sci. Eng., vol. 981, no. 2, p. 022073, Dec. 2020, doi: 10.1088/1757-899X/981/2/022073.
+- In addition, indexing strategies were modeled after code used in [Fashion Recommender system](https://github.com/sonu275981/Fashion-Recommender-system/) (not currently available), this [Fashion Recommender system](https://github.com/mj703/Fashion-Recommendation-System) application.
+- Development: The final web-based application was developed with Replit and Google's Gemini AI. Gemini AI also helped in developing and debugging other sections of code, including feature extraction, cropping and index building scripts. 
 - Data Source: Pattern data and images provided via the Ravelry API.
