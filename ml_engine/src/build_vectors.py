@@ -9,7 +9,7 @@ ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT_DIR not in sys.path:
     sys.path.insert(0, ROOT_DIR)
 
-from ml_engine.extract_features import extract_features
+from extract_features import extract_features
 
 
 feature_dim = 768 # Feature dimension for DINO features

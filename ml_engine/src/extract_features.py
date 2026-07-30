@@ -8,9 +8,7 @@ import threading
 from PIL import Image
 from crop_images import extract_and_crop_image
 
-
 # Use CUDA (GPU) if available, otherwise CPU
-# Use CUDA (NVIDIA), MPS (Apple Silicon), or fallback to CPU
 if torch.cuda.is_available():
     DEVICE = "cuda"
 elif torch.backends.mps.is_available():
@@ -19,47 +17,36 @@ else:
     DEVICE = "cpu"
 print(f"Using device: {DEVICE}")
 
-# UPDATED: Swapped to the DINOv3 base model pre-trained on the LVD-1689M dataset
-MODEL_ID = "facebook/dinov3-vitb16-pretrain-lvd1689m" 
+# DINOv3 base model
+MODEL_ID = "facebook/dinov3-vitb16-pretrain-lvd1689m"
 FEATURE_DIM = 768
 
 model = None
 processor = None
-_model_load_error = None
 _model_lock = threading.Lock()
 
 def get_dino_components():
     """Thread-safe lazy loader for DINOv3 model and processor."""
-    global model, processor, _model_load_error, FEATURE_DIM
-    if model is not None and processor is not None:
-        return model, processor
-    if _model_load_error is not None:
-        raise RuntimeError(f"DINOv3 models are not initialized: {_model_load_error}")
-
+    global model, processor
+    
     with _model_lock:
         if model is not None and processor is not None:
             return model, processor
 
-        try:
-            os.environ['HF_HOME'] = os.path.expanduser('~/.cache/huggingface')
-            loaded_model = AutoModel.from_pretrained(MODEL_ID).to(DEVICE)
-            loaded_processor = AutoImageProcessor.from_pretrained(MODEL_ID)
-            FEATURE_DIM = loaded_model.config.hidden_size
-            model = loaded_model
-            processor = loaded_processor
-            return model, processor
-        except Exception as e:
-            _model_load_error = e
-            raise RuntimeError(f"DINOv3 models are not initialized: {e}") from e
+        os.environ['HF_HOME'] = os.path.expanduser('~/.cache/huggingface')
+        
+        # Load standard AutoModel
+        loaded_model = AutoModel.from_pretrained(MODEL_ID).to(DEVICE)
+        loaded_processor = AutoImageProcessor.from_pretrained(MODEL_ID)
+        
+        model = loaded_model
+        processor = loaded_processor
+        return model, processor
 
 # Function to extract DINOv3 features from an image
 def extract_features(img_path, return_cropped_image=False):
-    try:
-        current_model, current_processor = get_dino_components()
-    except Exception as e:
-        if return_cropped_image:
-            return (img_path, Exception(str(e)), None)
-        return (img_path, Exception(str(e)))
+    # This will now throw a loud error if the model fails to load
+    current_model, current_processor = get_dino_components()
         
     try:
         image = None
@@ -71,19 +58,16 @@ def extract_features(img_path, return_cropped_image=False):
 
         if image is None or not hasattr(image, "shape") or image.size == 0:
             image = np.array(Image.open(img_path).convert("RGB"))
-        
 
         # 2. Process the image
-        # Pixel values can be obtained using DINOv3ViTImageProcessor
         inputs = current_processor(images=image, return_tensors="pt").to(DEVICE)
         
         # 3. Run the model
         with torch.no_grad():
             outputs = current_model(**inputs)
             
-        # 4. Get the feature vector
-        # pooler_output returns the hidden-state of the classification token after pooling on spatial dimensions
-        feature_vector = outputs.pooler_output.squeeze().cpu().numpy()
+        # 4. Get the feature vector (CLS token is index 0)
+        feature_vector = outputs.last_hidden_state[:, 0].squeeze().cpu().numpy()
             
         # 5. Normalize the vector
         normalized_vector = feature_vector / norm(feature_vector)
