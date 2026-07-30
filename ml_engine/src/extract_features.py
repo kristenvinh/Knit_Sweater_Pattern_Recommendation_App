@@ -18,7 +18,9 @@ elif torch.backends.mps.is_available():
 else:
     DEVICE = "cpu"
 print(f"Using device: {DEVICE}")
-MODEL_ID = "facebook/dinov2-base"
+
+# UPDATED: Swapped to the DINOv3 base model pre-trained on the LVD-1689M dataset
+MODEL_ID = "facebook/dinov3-vitb16-pretrain-lvd1689m" 
 FEATURE_DIM = 768
 
 model = None
@@ -27,12 +29,12 @@ _model_load_error = None
 _model_lock = threading.Lock()
 
 def get_dino_components():
-    """Thread-safe lazy loader for DINOv2 model and processor."""
+    """Thread-safe lazy loader for DINOv3 model and processor."""
     global model, processor, _model_load_error, FEATURE_DIM
     if model is not None and processor is not None:
         return model, processor
     if _model_load_error is not None:
-        raise RuntimeError(f"DINOv2 models are not initialized: {_model_load_error}")
+        raise RuntimeError(f"DINOv3 models are not initialized: {_model_load_error}")
 
     with _model_lock:
         if model is not None and processor is not None:
@@ -48,9 +50,9 @@ def get_dino_components():
             return model, processor
         except Exception as e:
             _model_load_error = e
-            raise RuntimeError(f"DINOv2 models are not initialized: {e}") from e
+            raise RuntimeError(f"DINOv3 models are not initialized: {e}") from e
 
-# Function to extract DINOv2 features from an image
+# Function to extract DINOv3 features from an image
 def extract_features(img_path, return_cropped_image=False):
     try:
         current_model, current_processor = get_dino_components()
@@ -72,15 +74,16 @@ def extract_features(img_path, return_cropped_image=False):
         
 
         # 2. Process the image
+        # Pixel values can be obtained using DINOv3ViTImageProcessor
         inputs = current_processor(images=image, return_tensors="pt").to(DEVICE)
         
         # 3. Run the model
         with torch.no_grad():
-            
             outputs = current_model(**inputs)
+            
         # 4. Get the feature vector
-            # Optimized for DINOv2 global feature representation
-            feature_vector = outputs.last_hidden_state[:, 0].squeeze().cpu().numpy()
+        # pooler_output returns the hidden-state of the classification token after pooling on spatial dimensions
+        feature_vector = outputs.pooler_output.squeeze().cpu().numpy()
             
         # 5. Normalize the vector
         normalized_vector = feature_vector / norm(feature_vector)
@@ -90,7 +93,7 @@ def extract_features(img_path, return_cropped_image=False):
         return (img_path, normalized_vector)
         
     except Exception as e:
-        print(f"Failed to extract DINOv2 features for {img_path}: {e}")
+        print(f"Failed to extract DINOv3 features for {img_path}: {e}")
         if return_cropped_image:
             return (img_path, e, None)
         return (img_path, e)

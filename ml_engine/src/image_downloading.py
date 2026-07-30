@@ -7,8 +7,7 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 
 # --- Configuration ---
-# You can update this to your specific path, e.g., '/Volumes/Extreme Pro/sweater_photos'
-LOCAL_SAVE_DIR = './sweater_photos' 
+LOCAL_SAVE_DIR = '/Volumes/Extreme Pro/sweater_photos'
 CREDENTIALS_PATH = 'src/knitwear-app-37e6574c4829.json' 
 
 def stream_images_to_local():
@@ -51,7 +50,7 @@ def stream_images_to_local():
         try:
             # Set up local folder for this specific pattern
             # Note: Removed the "pattern_" prefix to match your build_vectors.py structure
-            pattern_dir = os.path.join(LOCAL_SAVE_DIR, str(pattern_id))
+            pattern_dir = os.path.join(LOCAL_SAVE_DIR, str("pattern_" + str(pattern_id)))
             
             # Check if the first image already exists to skip
             first_file_path = os.path.join(pattern_dir, "01.jpg")

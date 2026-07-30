@@ -52,6 +52,8 @@
 - Had Gemini help with a base testing accuracy script, need to go more into evaluation later to ensure it's working well
 - Had gemini write a basic Streamlit app structure, fed that to Replit, which built out a basic application 
 
+## Week 3
+
 ### 7.27
 
 - Recorded week 3 demo
@@ -63,7 +65,7 @@
 
 - Made decision to focus on improving app by:
     - Having a deeper index of 10,000 sweaters
-    - Creating scripts to automatically pull in sweaters
+    - Creating scripts to automatically pull in new sweaters
     - Continuing to tweak the image feature extraction as possible
 - Began this work today by:
     - updating mage.ai process to download the first 10,000 sweaters that have the most projects
