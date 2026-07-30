@@ -56,16 +56,22 @@ Note: This file currently runs the build_vectors() function, otherwise, building
 
 Converts local structural arrays into a production cloud data warehouse schema and executes the primary ingestion to BigQuery.
 
-## Step 3: Build text embeddings
 
-In order to create an application that would allow for searching by image + text, text vectors were created by doing the following:
+## Step Three: Evaluation
 
-### Feature_Engineering.sql
+## Step Four: Build Website (located in private repo)
+
+Built using Replit and Gemini.
+- User uploads an image.
+- Image is cropped and features are extracted using similar scripts to the above (although nano YOLO is used to minimize application storage.)
+- Queries the image vector table in BigQuery and returns pattern names, images and links for the top 10 patterns in the database. 
 
 
+## Future Work
 
-## Step 4: Build Search Engine and Website
-(Located in separate GitHub repository here: )
+- Continue exploring a "fusion" approach by allowing users to search via text and/or images (some of the code for this exists already in the ML/SQL folder.)
+- Test DinoV3 for better extraction.
+- Develop a pipeline to allow for new patterns to be added on a weekly basis. 
 
 ## Acknowledgments & References
 

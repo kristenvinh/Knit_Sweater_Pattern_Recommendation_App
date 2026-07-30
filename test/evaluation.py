@@ -3,24 +3,16 @@ import time
 import numpy as np
 import pandas as pd
 from google.cloud import bigquery
-from dino_feature_extraction import extract_features
+from extract_features import extract_features
 
 # --- Configuration ---
 GCP_PROJECT = "knitwear-app"
 test_image_folders = [
-    'Evaluation_Sweaters/pullovers',
-    'Evaluation_Sweaters/cardigans'
+    'Evaluation_Sweaters_Sampled/pullovers',
+    'Evaluation_Sweaters_Sampled/cardigans'
 ]
 valid_image_extensions = ('.jpg', '.jpeg', '.png')
 num_recommendations = 10
-
-# Add the exclusion list here
-missing_patterns = [
-    7311058, 5870, 817885, 858135, 639347, 381119, 13854, 363242, 
-    1138136, 817988, 971112, 543344, 473885, 9042, 602276, 844144, 
-    479305, 1196042, 1028254, 1119779, 100136, 132943, 1215387, 
-    559137, 397061, 1259525, 13579, 681431, 949096, 7292988, 33875
-]
 
 bq_client = bigquery.Client(project=GCP_PROJECT)
 
@@ -52,12 +44,6 @@ for folder in test_image_folders:
         
     print(f"\n--- Processing Evaluation Folder: {folder} ---")
     image_files = [f for f in sorted(os.listdir(folder)) if f.lower().endswith(valid_image_extensions)]
-
-    # --- NEW: Skip missing patterns ---
-    if ground_truth_id in missing_patterns:
-        print(f"  > SKIPPING: Pattern {ground_truth_id} is in the missing patterns list.")
-        continue
-        # ----------------------------------
     
     for i, fname in enumerate(image_files, start=1):
         test_image_path = os.path.join(folder, fname)

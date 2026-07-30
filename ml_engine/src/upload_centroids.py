@@ -7,7 +7,7 @@ from google.cloud import bigquery
 from google.oauth2 import service_account
 
 # --- Configuration ---
-CREDENTIALS_PATH = 'ml_engine/knitwear-app-37e6574c4829.json' # Path to your GCP service account JSON
+CREDENTIALS_PATH = 'src/knitwear-app-37e6574c4829.json' # Path to your GCP service account JSON
 master_features_file = 'features_DINO_yolo_pose_multicentroid.npy'
 pattern_mapping_file = 'pattern_to_centroids_DINO_yolo_pose_multicentroid.pkl'
 
