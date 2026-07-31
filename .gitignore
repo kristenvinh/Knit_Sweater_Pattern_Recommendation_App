@@ -13,3 +13,4 @@ ml_engine/pattern_ids_DINO_yolo_pose_multicentroid.pkl
 ml_engine/pattern_to_centroids_DINO_yolo_pose_multicentroid.pkl
 *.npy
 ml_engine/features_DINO_yolo_pose_multicentroid.npy
+ml_engine/sweater_hnsw_DINO3_yolo_pose_multicentroid.bin
