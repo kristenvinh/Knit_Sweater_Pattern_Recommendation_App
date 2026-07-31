@@ -70,7 +70,6 @@ Built using Replit and Gemini.
 ## Future Work
 
 - Continue exploring a "fusion" approach by allowing users to search via text and/or images (some of the code for this exists already in the ML/SQL folder.)
-- Test DinoV3 for better extraction.
 - Develop a pipeline to allow for new patterns to be added on a weekly basis. 
 
 ## Acknowledgments & References
