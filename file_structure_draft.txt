@@ -1,16 +1,11 @@
 knitwear_recommender/             # Main project root folder
 │
-├── .github/                      # WEEK 1: Automation
-│   └── workflows/
-│       └── run_etl.yml           # GitHub Actions workflow to trigger Mage/data sync
-│
-├── .gitignore                    # Ignore local weights, credentials, and venvs
-│
+├── .github/                      # Empty for now, will contain automations
 ├── README.md                     # Documentation of the 4-week architecture
 │
 ├── requirements.txt              # Unified local Python dependencies (PyTorch, Streamlit, etc.)
 │
-├── data_pipeline/                # WEEK 1: Mage Subfolder (Created automatically by Mage)
+├── data_pipeline/                # Mage Subfolder (Created automatically by Mage)
 │   ├── data_loaders/
 │   │   └── pattern_lists.py       # Python script hitting the Ravelry API
 │   ├── data_exporters/
@@ -23,27 +18,24 @@ knitwear_recommender/             # Main project root folder
 │   │   └── export_pattern_details.py  # Retrieves from patterns using API
 │   └── io_config.yaml           # Central connections profile (holds GCP key path & API keys)
 │
-├── ml_engine/                    # WEEK 2: Local Feature Extraction & Multicentroid Processing
+├── ml_engine/                    # Local Feature Extraction & Multicentroid Processing
 │   ├── models/                   
-│   │   ├── yolov8n-pose.pt       # Cached local YOLO model weights
-│   │   └── dinov2_vitb14.pt      # Cached local DINOv2 model weights
+│   │   ├── yolov8m-pose.pt       # Cached local YOLO model weights
+│   │   ├── yolov8m-pose.pt       # Cached local YOLO model weights
 │   ├── src/
 │   │   ├── image_downloading.py  # Downloads images from Ravlery to GCS
 │   │   ├── crop_images.py        # Cropping logic using YOLO-v8n-Pose points
 │   │   ├── extract_features.py   # Image vector extraction via DINOv2
 │   │   ├── build_vectors.py      # Extracts centroids from multiple image vectors
 │   │   ├── build_index.py        # Builds HNSWlib index, runs other scripts
-│   │   ├── upload_centroids.py   # Uploads centroid vectors to BigQuery
-│   └── generate_embeddings.py    # Main orchestration execution script for ML steps
+│   │   └── upload_centroids.py   # Uploads centroid vectors to BigQuery
+├──test/                          # Local Feature Extraction & Multicentroid Processing
+│   ├── Evaluation_Sweaters/      # Contains all project photos downloaded                     
+│   ├── Evaluation_Sweaters_Sampled/ # Contains 25 each randomly sampled from above folder
+│   ├── Bigquery_tests.py         # Checks to ensure sweater images are in the BigQuery Database
+│   ├── Evaluation.py             # Gets Recall@10 score for each project photo
 │
-├── sql_assets/                   # WEEKS 1, 2, & 3: Production Database Scripts
-│   ├── indexing/
-│   │   ├── text_embeddings_ml.sql   # BigQuery ML script calling Vertex AI text embedding model
-│   │   └── create_vector_indexes.sql # CREATE VECTOR INDEX statements for text and image columns
-│   └── procedures/
-│       └── hybrid_search_engine.sql  # Complex Stored Procedure handling dual VECTOR_SEARCH & min aggregation
-│
-└── streamlit_app/                # WEEK 4: User Interface
+└── app/                # Copy of User Interface
     ├── assets/                   # UI design files, custom CSS, or logo images
     ├── app.py                    # Main application entrance handling file upload & weights
     └── bq_client.py              # Isolated module handling BigQuery Python SDK connection & logic
