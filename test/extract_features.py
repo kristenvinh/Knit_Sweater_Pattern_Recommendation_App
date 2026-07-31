@@ -8,9 +8,7 @@ import threading
 from PIL import Image
 from crop_images import extract_and_crop_image
 
-
 # Use CUDA (GPU) if available, otherwise CPU
-# Use CUDA (NVIDIA), MPS (Apple Silicon), or fallback to CPU
 if torch.cuda.is_available():
     DEVICE = "cuda"
 elif torch.backends.mps.is_available():
@@ -18,46 +16,44 @@ elif torch.backends.mps.is_available():
 else:
     DEVICE = "cpu"
 print(f"Using device: {DEVICE}")
-MODEL_ID = "facebook/dinov2-base"
+
+# DINOv3 base model
+MODEL_ID = "facebook/dinov3-vitb16-pretrain-lvd1689m"
 FEATURE_DIM = 768
 
 model = None
 processor = None
-_model_load_error = None
 _model_lock = threading.Lock()
 
 def get_dino_components():
-    """Thread-safe lazy loader for DINOv2 model and processor."""
-    global model, processor, _model_load_error, FEATURE_DIM
-    if model is not None and processor is not None:
-        return model, processor
-    if _model_load_error is not None:
-        raise RuntimeError(f"DINOv2 models are not initialized: {_model_load_error}")
-
+    """Thread-safe lazy loader for DINOv3 model and processor."""
+    global model, processor
+    
     with _model_lock:
         if model is not None and processor is not None:
             return model, processor
 
-        try:
-            os.environ['HF_HOME'] = os.path.expanduser('~/.cache/huggingface')
-            loaded_model = AutoModel.from_pretrained(MODEL_ID).to(DEVICE)
-            loaded_processor = AutoImageProcessor.from_pretrained(MODEL_ID)
-            FEATURE_DIM = loaded_model.config.hidden_size
-            model = loaded_model
-            processor = loaded_processor
-            return model, processor
-        except Exception as e:
-            _model_load_error = e
-            raise RuntimeError(f"DINOv2 models are not initialized: {e}") from e
+        os.environ['HF_HOME'] = os.path.expanduser('~/.cache/huggingface')
 
-# Function to extract DINOv2 features from an image
+        # Grab the token from the environment
+        # Grab the token from the environment (will be None locally, populated in Replit)
+        hf_token = os.environ.get("HF_TOKEN")
+        
+        # If hf_token exists, use it. Otherwise, pass True to use your local CLI login.
+        auth_token = hf_token if hf_token else True
+            
+        # Pass the auth_token to the DINOv3 components
+        loaded_model = AutoModel.from_pretrained(MODEL_ID, token=auth_token).to(DEVICE)
+        loaded_processor = AutoImageProcessor.from_pretrained(MODEL_ID, token=auth_token)
+        
+        model = loaded_model
+        processor = loaded_processor
+        return model, processor
+
+# Function to extract DINOv3 features from an image
 def extract_features(img_path, return_cropped_image=False):
-    try:
-        current_model, current_processor = get_dino_components()
-    except Exception as e:
-        if return_cropped_image:
-            return (img_path, Exception(str(e)), None)
-        return (img_path, Exception(str(e)))
+    # This will now throw a loud error if the model fails to load
+    current_model, current_processor = get_dino_components()
         
     try:
         image = None
@@ -69,18 +65,16 @@ def extract_features(img_path, return_cropped_image=False):
 
         if image is None or not hasattr(image, "shape") or image.size == 0:
             image = np.array(Image.open(img_path).convert("RGB"))
-        
 
         # 2. Process the image
         inputs = current_processor(images=image, return_tensors="pt").to(DEVICE)
         
         # 3. Run the model
         with torch.no_grad():
-            
             outputs = current_model(**inputs)
-        # 4. Get the feature vector
-            # Optimized for DINOv2 global feature representation
-            feature_vector = outputs.last_hidden_state[:, 0].squeeze().cpu().numpy()
+            
+        # 4. Get the feature vector (CLS token is index 0)
+        feature_vector = outputs.last_hidden_state[:, 0].squeeze().cpu().numpy()
             
         # 5. Normalize the vector
         normalized_vector = feature_vector / norm(feature_vector)
@@ -90,7 +84,7 @@ def extract_features(img_path, return_cropped_image=False):
         return (img_path, normalized_vector)
         
     except Exception as e:
-        print(f"Failed to extract DINOv2 features for {img_path}: {e}")
+        print(f"Failed to extract DINOv3 features for {img_path}: {e}")
         if return_cropped_image:
             return (img_path, e, None)
         return (img_path, e)
