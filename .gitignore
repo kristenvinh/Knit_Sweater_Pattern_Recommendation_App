@@ -1,2 +1,6 @@
 knitwear-app-37e6574c4829.json
 data_pipeline/io_config.yaml
+ml_engine/centroid_to_pattern_DINO_yolo_pose.pkl
+ml_engine/sweater_hnsw_DINO_yolo_pose_multicentroid.bin
+ml_engine/features_DINO3_yolo_pose_multicentroid.npy
+ml_engine/sweater_hnsw_DINO3_yolo_pose_multicentroid.bin

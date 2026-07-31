@@ -9,11 +9,11 @@ from build_vectors import build_vectors
 # --- Setup ---
 feature_dim = 768 #Feature dimension for DINO features
 data_directory = '/Volumes/Extreme Pro/sweater_photos'  # Example directory path, images should be in pattern subfolders
-features_file = 'features_DINO_yolo_pose_multicentroid.npy'
-pattern_ids_file = 'pattern_ids_DINO_yolo_pose_multicentroid.pkl'
-pattern_mapping_file = 'pattern_to_centroids_DINO_yolo_pose.pkl'  # Maps centroid_idx -> pattern_id
-index_name = 'sweater_hnsw_DINO_yolo_pose_multicentroid.bin'
-mapping_file = 'centroid_to_pattern_DINO_yolo_pose.pkl'  # For query-time lookup
+features_file = 'features_DINO3_yolo_pose_multicentroid.npy'
+pattern_ids_file = 'pattern_ids_DINO3_yolo_pose_multicentroid.pkl'
+pattern_mapping_file = 'pattern_to_centroids_DINO3_yolo_pose_multicentroid.pkl'  # Maps centroid_idx -> pattern_id
+index_name = 'sweater_hnsw_DINO3_yolo_pose_multicentroid.bin'
+mapping_file = 'centroid_to_pattern_DINO3_yolo_pose_multicentroid.pkl'  # For query-time lookup
 # ---
 
 if __name__ == "__main__":
