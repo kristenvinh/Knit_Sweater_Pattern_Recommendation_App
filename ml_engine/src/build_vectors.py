@@ -17,9 +17,9 @@ data_directory = '/Volumes/Extreme Pro/sweater_photos'
 n_clusters = 4   # K-means clusters per pattern (3-5 recommended, 4 is good balance)
 CHECKPOINT_INTERVAL = 50  # Save progress every 50 patterns
 # Filenames
-features_file = 'features_DINO_yolo_pose_multicentroid.npy'
-pattern_ids_file = 'pattern_ids_DINO_yolo_pose_multicentroid.pkl'
-pattern_mapping_file = 'pattern_to_centroids_DINO_yolo_pose_multicentroid.pkl'
+features_file = 'features_DINO3_yolo_pose_multicentroid.npy'
+pattern_ids_file = 'pattern_ids_DINO3_yolo_pose_multicentroid.pkl'
+pattern_mapping_file = 'pattern_to_centroids_DINO3_yolo_pose_multicentroid.pkl'
 # ---
 
 def build_vectors():
