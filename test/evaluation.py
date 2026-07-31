@@ -21,7 +21,7 @@ def query_bigquery_vector_search(query_vector, top_k=10):
     sql = f"""
     SELECT base.pattern_id, distance AS image_distance
     FROM VECTOR_SEARCH(
-      TABLE `{GCP_PROJECT}.ravelry_data.dim_pattern_image_embeddings_Dino3`,
+      TABLE `{GCP_PROJECT}.ravelry_data.dim_pattern_image_embeddings_Dino3_filtered`,
       'image_embedding',
       (SELECT @vec AS image_embedding),
       top_k => {top_k}, distance_type => 'COSINE'

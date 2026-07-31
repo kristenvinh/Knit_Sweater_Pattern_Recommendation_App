@@ -42,6 +42,8 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
 
 ## What challenges did you encounter?
 - Replit was using a lot of computational cost, so hopefully downloading smaller models (and not running fresh models) helps
+- DinoV2 model was still performing subpar, switched to DINOv2
+- Ran into an issue where I created image vectors for patterns not in my main catalog so some of the data wasn't displaying in the application correctly, need to write a script for a new table that excludes these
 
 
 ---
