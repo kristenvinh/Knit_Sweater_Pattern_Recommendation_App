@@ -25,15 +25,13 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
     - Upload vectors to BigQuery
 3. Used Replit and Gemini to create an app that finds the nearest vectors to an image uploaded by a user.
 
-
-
-
 ---
 
 ## What did you make progress on this week?
 
 - Began process to house 10,000 sweaters in the Database vs the original 5,000
-- Downloaded smaller yolo scripts for app so that it wasn't downloading them fresh every time the application ran
+- Downloaded smaller yolo scripts for app and adjusted the application that it wasn't downloading them fresh every time the application ran
+- Made UI improvements to the app
 - Upgraded to a DinoV3 model
 - Ran evaluation.py script. 
 ---
