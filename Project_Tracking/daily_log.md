@@ -73,3 +73,13 @@
 - Realized Replit application was eating a lot of credits, debugged with Gemini
     - Switched to smaller yolo models for application
     - Ensured it had access to it on the server instead of having to fresh download it every time
+
+
+### 7.30
+- Reran DinoV2 with 10,000 sweaters, results were subpar
+- Ran with DinoV3, testing tomorrow
+
+## 7.31 
+
+- Evaluation with DinoV3 was better, with a Recall@10 at 24%, the highest with this project yet
+- Discovered an issue where I created vectors for patterns that weren't in this current database because they're still in the image folder, need to write a query that creates a vector table that excludes the missing catalog patterns
