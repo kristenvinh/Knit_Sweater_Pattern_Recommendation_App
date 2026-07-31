@@ -28,7 +28,9 @@ knitwear_recommender/             # Main project root folder
 │   │   ├── extract_features.py   # Image vector extraction via DINOv2
 │   │   ├── build_vectors.py      # Extracts centroids from multiple image vectors
 │   │   ├── build_index.py        # Builds HNSWlib index, runs other scripts
+│   │   ├── table_cleaning.py     # Removes vectors not found in main catalog_data table
 │   │   └── upload_centroids.py   # Uploads centroid vectors to BigQuery
+│
 ├──test/                          # Local Feature Extraction & Multicentroid Processing
 │   ├── Evaluation_Sweaters/      # Contains all project photos downloaded                     
 │   ├── Evaluation_Sweaters_Sampled/ # Contains 25 each randomly sampled from above folder
@@ -36,6 +38,9 @@ knitwear_recommender/             # Main project root folder
 │   ├── Evaluation.py             # Gets Recall@10 score for each project photo
 │
 └── app/                # Copy of User Interface
-    ├── assets/                   # UI design files, custom CSS, or logo images
-    ├── app.py                    # Main application entrance handling file upload & weights
-    └── bq_client.py              # Isolated module handling BigQuery Python SDK connection & logic
+    ├── models/                   # Dinov3 and YOLO models
+    ├── main.py                    # Main application entrance handling file upload & weights
+    ├── scripts/                   # post-merge.sh script
+    ├── requirements.txt           # Application requirements
+    ├── replit.md                  # application specific readme file
+    └── crop_images.py             # Crops files using nano YOLO files

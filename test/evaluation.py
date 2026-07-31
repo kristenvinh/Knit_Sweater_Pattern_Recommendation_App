@@ -12,7 +12,8 @@ test_image_folders = [
     'Evaluation_Sweaters_Sampled/cardigans'
 ]
 valid_image_extensions = ('.jpg', '.jpeg', '.png')
-num_recommendations = 10
+num_recommendations = 20
+csv_output_filename = "evaluation_results_recall_20.csv"  # New: Define the output file name
 
 bq_client = bigquery.Client(project=GCP_PROJECT)
 
@@ -36,6 +37,7 @@ def query_bigquery_vector_search(query_vector, top_k=10):
 # --- Run Evaluation Across Folders ---
 all_query_times_ms = []
 all_hits = []
+results_data = []  # New: List to hold row data for the CSV
 
 for folder in test_image_folders:
     if not os.path.isdir(folder):
@@ -72,14 +74,25 @@ for folder in test_image_folders:
         print(f"  > Query Time: {query_time_ms:.2f} ms")
         print(f"  > Recommended IDs: {recs}")
         
-        if ground_truth_id in recs:
+        is_hit = 1 if ground_truth_id in recs else 0
+        if is_hit:
             all_hits.append(1)
             print(f"  > RESULT: HIT! ID {ground_truth_id} was returned.")
         else:
             all_hits.append(0)
             print(f"  > RESULT: MISS. ID {ground_truth_id} was not returned.")
+            
+        # New: Append data for this image to our results list
+        results_data.append({
+            'Category': os.path.basename(folder),
+            'Filename': fname,
+            'Ground_Truth_ID': ground_truth_id,
+            'Hit': is_hit,
+            'Query_Time_ms': round(query_time_ms, 2),
+            'Recommendations': str(recs)
+        })
 
-# --- Summary Metrics ---
+# --- Summary Metrics & CSV Export ---
 if all_hits:
     total_processed = len(all_hits)
     num_hits = sum(all_hits)
@@ -91,3 +104,8 @@ if all_hits:
     print(f"Recall@{num_recommendations}: {recall:.2f}% ({num_hits}/{total_processed} hits)")
     print(f"Average Query Latency: {avg_latency:.2f} ms")
     print("==============================================================")
+    
+    # New: Export to CSV using pandas
+    df_results = pd.DataFrame(results_data)
+    df_results.to_csv(csv_output_filename, index=False)
+    print(f"\nRow-level evaluation results exported successfully to: {csv_output_filename}")

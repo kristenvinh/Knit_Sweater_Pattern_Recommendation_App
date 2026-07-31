@@ -1,0 +1,13 @@
+streamlit
+google-cloud-bigquery
+transformers>=4.30.0
+torch
+torchvision
+pillow
+pandas
+pyarrow
+db-dtypes
+google-auth
+opencv-python-headless
+ultralytics
+sift-stack-py

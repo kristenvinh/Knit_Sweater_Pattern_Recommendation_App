@@ -23,11 +23,8 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
     - Extract features using DINOv2
     - Extract centroids to create a vectors representing multiple images
     - Upload vectors to BigQuery
-3. Create and Load Text Vectors to BigQuery
-    - Feature-engineered a text description with pattern name, pattern notes, attributes, and yarn weight.
-    - Used Vertex AI to convert these descriptions to vectors for search
-4. Used Replit and Gemini to create an app that finds the nearest vectors to an image uploaded by a user and text entered by the user, weighted equally. 
-5. Developed secondary process to download newly published patterns using GitHub actions on a daily basis and add them to the application. 
+3. Used Replit and Gemini to create an app that finds the nearest vectors to an image uploaded by a user.
+
 
 
 
@@ -36,18 +33,22 @@ This idea grew out of searching the Internet on my own for sweater patterns simi
 ## What did you make progress on this week?
 
 - Began process to house 10,000 sweaters in the Database vs the original 5,000
-- Developed GitHub action and script to grab updated images regularly
 - Downloaded smaller yolo scripts for app so that it wasn't downloading them fresh every time the application ran
+- Upgraded to a DinoV3 model
+- Ran evaluation.py script. 
 ---
 
 ## What challenges did you encounter?
 - Replit was using a lot of computational cost, so hopefully downloading smaller models (and not running fresh models) helps
-- DinoV2 model was still performing subpar, switched to DINOv2
-- Ran into an issue where I created image vectors for patterns not in my main catalog so some of the data wasn't displaying in the application correctly, need to write a script for a new table that excludes these
+- DinoV2 model was still performing subpar, switched to DINOv3
+- Ran into an issue where I created image vectors for patterns not in my main catalog so some of the data wasn't displaying in the application correctly, need to write a script for a new table that excludes these.
 
 
 ---
 
 ## What’s next?  
+
+- Continue exploring a "fusion" approach by allowing users to search via text and/or images (some of the code for this exists already in the ML/SQL folder.)
+- Develop a pipeline to allow for new patterns to be added on a weekly basis. 
 
 ### 

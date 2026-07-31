@@ -57,9 +57,17 @@ Note: This file currently runs the build_vectors() function, otherwise, building
 Converts local structural arrays into a production cloud data warehouse schema and executes the primary ingestion to BigQuery.
 
 
-## Step Three: Evaluation
+## Step Three: Evaluation -- evaluation.py
 
-## Step Four: Build Website (located in private repo)
+Calculates Recall@K scores while running on a set of project images (images uploaded by users who've knit the pattern) stored in the "Evaluation_Sweaters_Sampled" folder (note, these are a subset of random samples from test samples downloaded from a previous iteration of this project).
+
+Recall@10: 24%
+
+Recall@20: 32%
+
+These scores, while low, are higher than previous iterations. In addition, model tends to return fairly similar matches on clear, straightforward images if not an exact match. 
+
+## Step Four: Build Website 
 
 Built using Replit and Gemini.
 - User uploads an image.
