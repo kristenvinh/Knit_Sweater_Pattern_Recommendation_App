@@ -12,7 +12,7 @@ def export_data_to_big_query(df: DataFrame, **kwargs) -> None:
     """
     Exports the staging catalog DataFrame to your BigQuery warehouse.
     """
-    table_id = 'knitwear-app.ravelry_data.catalog_data'
+    table_id = 'knitwear-app.ravelry_data.detail_data'
     
     # Point Mage to your io_config.yaml file
     config_path = path.join(get_repo_path(), 'io_config.yaml')
@@ -22,6 +22,5 @@ def export_data_to_big_query(df: DataFrame, **kwargs) -> None:
     BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).export(
         df,
         table_id,
-        if_exists='replace',  # Overwrites the staging table on each run
+        if_exists='append',  
     )
-

@@ -22,6 +22,6 @@ def export_data_to_big_query(df: DataFrame, **kwargs) -> None:
     BigQuery.with_config(ConfigFileLoader(config_path, config_profile)).export(
         df,
         table_id,
-        if_exists='replace',  # Overwrites the staging table on each run
+        if_exists='append',  # Appends to new table
     )
 
