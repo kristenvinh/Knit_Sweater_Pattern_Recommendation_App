@@ -3,8 +3,8 @@ blocks:
   color: null
   configuration: {}
   downstream_blocks:
-  - append_pattern_lists_py
   - extract_pattern_details
+  - append_pattern_list
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -18,27 +18,11 @@ blocks:
   uuid: pattern_lists_append_py
 - all_upstream_blocks_executed: true
   color: null
-  configuration: {}
-  downstream_blocks: []
-  executor_config: null
-  executor_type: local_python
-  has_callback: false
-  language: python
-  name: append_pattern_lists.py
-  retry_config: null
-  status: executed
-  timeout: null
-  type: data_exporter
-  upstream_blocks:
-  - pattern_lists_append_py
-  uuid: append_pattern_lists_py
-- all_upstream_blocks_executed: true
-  color: null
   configuration:
     file_source:
       path: transformers/extract_pattern_details.py
   downstream_blocks:
-  - append_pattern_details_py
+  - append_pattern_details
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -53,20 +37,135 @@ blocks:
   uuid: extract_pattern_details
 - all_upstream_blocks_executed: true
   color: null
+  configuration:
+    data_provider: bigquery
+    data_provider_profile: default
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_source:
+      path: data_exporters/bridge_attributes.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: bridge_attributes
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - append_pattern_details
+  uuid: bridge_attributes
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: bigquery
+    data_provider_profile: default
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_source:
+      path: data_exporters/dimensions.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: dimensions
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - append_pattern_details
+  uuid: dimensions
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    data_provider: bigquery
+    data_provider_profile: default
+    dbt: {}
+    disable_query_preprocessing: false
+    export_write_policy: append
+    file_source:
+      path: data_exporters/pattern_photos.sql
+    limit: 1000
+    use_raw_sql: true
+  downstream_blocks:
+  - download_images_py
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: sql
+  name: pattern_photos
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - append_pattern_details
+  uuid: pattern_photos
+- all_upstream_blocks_executed: false
+  color: null
   configuration: {}
   downstream_blocks: []
   executor_config: null
   executor_type: local_python
   has_callback: false
   language: python
-  name: append_pattern_details.py
+  name: download_images.py
+  retry_config: null
+  status: updated
+  timeout: null
+  type: transformer
+  upstream_blocks:
+  - pattern_photos
+  uuid: download_images_py
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: data_exporters/append_pattern_list.py
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: append_pattern_list
+  retry_config: null
+  status: executed
+  timeout: null
+  type: data_exporter
+  upstream_blocks:
+  - pattern_lists_append_py
+  uuid: append_pattern_list
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    file_source:
+      path: data_exporters/append_pattern_details.py
+  downstream_blocks:
+  - bridge_attributes
+  - dimensions
+  - pattern_photos
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: append_pattern_details
   retry_config: null
   status: executed
   timeout: null
   type: data_exporter
   upstream_blocks:
   - extract_pattern_details
-  uuid: append_pattern_details_py
+  uuid: append_pattern_details
 cache_block_output_in_memory: false
 callbacks: []
 concurrency_config: {}
